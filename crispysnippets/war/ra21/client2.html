@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+  <title>Cross Storage Hub</title>
+</head>
+<body>
+  <script type="text/javascript" src="js/cross-storage/es6-promise.auto.min.js"></script>
+  <script type="text/javascript" src="js/cross-storage/client.js"></script>
+  <script type="text/javascript">
+    var storage = new CrossStorageClient('http://elsoxfl-7035551.science.regn.net:8080/RA21-P3W-Pilot/hub.html');
+    storage.onConnect()
+    .then(function() {
+      return storage.get('key1', 'key2');
+    }).then(function(res) {
+      console.log(res); // ['foo', 'bar']
+    })['catch'](function(err) {
+      console.log(err);
+    });
+  </script>
+</body>
+</html>

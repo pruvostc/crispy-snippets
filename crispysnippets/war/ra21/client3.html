@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <title>Cross Storage Hub</title>
+</head>
+<body>
+  <p id="demo"></p>
+  <script type="text/javascript" src="js/cross-storage/es6-promise.auto.min.js"></script>
+  <script type="text/javascript" src="js/cross-storage/client.js"></script>
+  <script type="text/javascript">
+  /**
+   * Constructs a WAYFLess URL
+   * @param {String} entityId
+   *   entityID value
+   * @return {String} url
+   *   WAYFLess URL as a string
+   */
+    function getWayfLessUrl(entityId) {
+	    return "https://auth.elsevier.com/ShibAuth/institutionLogin?entityID="
+	      + encodeURIComponent(entityId)
+	      + "&appReturnURL=http%3A%2F%2Fwww.sciencedirect.com%2Fscience";
+    }
+ 
+    var storage = new CrossStorageClient('http://nightly.pyff.io/storage/', {
+        timeout: 20000,
+        frameId: 'storageFrame'
+    });
+    
+    storage.onConnect()
+    .then(function() {
+      return storage.get('pyff_discovery_choices');
+    }).then(function(res) {
+      //console.log(res); // ['foo', 'bar']
+      
+      // Parse the results
+      var myObjects = JSON.parse(res);
+      for (i in myObjects) {
+    	obj = myObjects[i];
+    	document.getElementById("demo").innerHTML += "" 
+        	+ "<img width=\"50\" height=\"50\" src=\"" 
+    		+ obj.entity.entity_icon
+    		+ "\"/> "
+    		+ "<a href=\"" 
+    		+ getWayfLessUrl(obj.entity.entityID) 
+    		+ "\">"+ obj.entity.title 
+    		+ "</a><br/>";
+      }
+    })['catch'](function(err) {
+      console.log(err);
+    });
+  </script>
+</body>
+</html>

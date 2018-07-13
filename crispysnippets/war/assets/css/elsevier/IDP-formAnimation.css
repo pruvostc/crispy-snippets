@@ -1,0 +1,118 @@
+.form-row,.form-row-inline {
+	text-align: left;
+	padding: 0 32px 0 32px;
+	position: relative;
+	margin-top: 40px;
+}
+
+/* INPUT */
+.form-row input,.form-row-inline input {
+	display:block;
+	border:none;
+	border-bottom: 2px solid #dcdcdc;
+	width:100%;
+	height: 35px;
+	font-size: 1.25em;
+	line-height: 1.8;
+	outline-color: #fff;
+}
+.form-row textarea {
+  resize: none;
+  width: 480px;
+  height: 35px;
+  max-height: 120px;
+  border: none;
+  font-size: 1.25em;
+  border-bottom: 2px solid #dcdcdc;
+  outline-color: #fff;
+  display: block;
+  line-height: 1.6;
+}
+.form-row input:focus,.form-row-inline input:focus {
+	outline:none;
+}
+
+/* LABEL */
+.form-row label,.form-row-inline label {
+	color: #007398;
+	display: block;
+	font-size: 1.25em;
+	font-weight:normal;
+	position:absolute;
+	pointer-events:none;
+	top: 8px;
+  	left: 32.5px;
+	transition:0.2s ease all;
+	-moz-transition:0.2s ease all;
+	-webkit-transition:0.2s ease all;
+}
+.form-row-inline ~ .form-row-inline label{
+	left: 0;
+}
+/* ACTIVE STATE */
+.form-row input:focus ~ label, .form-row input:valid ~ label,.form-row-inline input:focus ~ label, .form-row-inline input:valid ~ label,.form-row textarea:focus ~ label{
+	top: -15px;
+	left: 32.5px;
+	font-size: 1em;
+	color: #007398;
+}
+.form-row-inline ~ .form-row-inline input:focus ~ label,.form-row-inline ~ .form-row-inline input:valid ~ label{
+	left: 0;
+}
+.form-row input:focus ~ .bar:before, .form-row input:focus ~ .bar:after, .form-row input:hover ~ .bar:before, .form-row input:hover ~ .bar:after,.form-row textarea:focus ~ .bar:before, .form-row textarea:focus ~ .bar:after, .form-row textarea:hover ~ .bar:before, .form-row textarea:hover ~ .bar:after,.form-row-inline input:focus ~ .bar:before, .form-row-inline input:focus ~ .bar:after, .form-row-inline input:hover ~ .bar:before, .form-row-inline input:hover ~ .bar:after{
+  	width:50%;
+}
+
+/* BOTTOM BARS */
+.form-row .bar,.form-row-inline .bar {
+	position:relative;
+	display:block;
+}
+.form-row .bar:before, .form-row .bar:after,.form-row-inline .bar:before, .form-row-inline .bar:after{
+	content:'';
+	height:2px;
+	width:0;
+	bottom:0px;
+	position:absolute;
+	background:#505050;
+	transition:0.2s ease all;
+	-moz-transition:0.2s ease all;
+	-webkit-transition:0.2s ease all;
+}
+.form-row .bar:before,.form-row-inline .bar:before  {
+	left:50%;
+}
+.form-row .bar:after,.form-row-inline .bar:after {
+  	right:50%;
+}
+.form-row-inline{
+	padding: 0 16px 0 32px;
+	width: 50%;
+    float: left;
+}
+.form-row-inline ~ .form-row-inline{
+	padding: 0 32px 0 0;
+}
+.els-settings-main .form-row-inline ~ .form-row{
+	float: left;
+	width: 100%;    
+	margin-top: 20px;
+}
+/* RESPONSIVENESS */
+@media screen and (max-width:511px) {
+	.form-row{
+		padding: 0 16px 0 16px;
+	}
+	.form-row-inline{
+		padding: 0 16px 0 16px;
+	}
+	.form-row-inline ~ .form-row-inline{
+		padding: 0 16px 0 0;
+	}
+	.form-row label,.form-row-inline label{
+		left: 16px;
+	}
+	.form-row input:focus ~ label, .form-row input:valid ~ label,.form-row-inline input:focus ~ label, .form-row-inline input:valid ~ label{
+		left: 16px;
+	}
+}

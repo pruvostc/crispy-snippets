@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  	<meta name="robots" content="index, follow" />
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+  	
+  	<!--  investigate <meta name="twitter:card" twitter:site twitter:title twitter:description etc... -->
+  	<!-- add additional relevant SEO tag --> 
+  	<!--  favicon stuff - to be improved for multiple platforms when the final icon/logo is decided -->
+  	<link rel="shortcut icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+  	
+  	<!-- jquery library - must be loaded before other requiring it -->
+  	<script src="/js/jquery-3.1.1.min.js"></script>
+
+  	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <!-- Optional theme -->
+	<link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css"/>
+    <!-- Latest compiled and minified JavaScript -->
+	<script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	
+	<!--  to investigate / adobe fonts
+	<script src="https://use.typekit.net/fpj7sfq.js"></script>
+	<script>try{Typekit.load({ async: true });}catch(e){}</script>  -->
+	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	
+	<link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/style-home.css"/>
+	
+    <title>Christian Pruvost's Snippets</title>
+  </head>
+<body>
+<header role="banner">
+<!--Navbar-->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Crispy-Snippets</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/#">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">SAML discovery<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/#metadata">Metadata check</a></li>
+            <li><a href="/#">not linked</a></li>
+            <li><a href="/#">not linked</a></li>
+          </ul>
+        </li>
+        <li><a href="/#aboutus">About</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header> 
+<div class="intro-header-page">
+Hello
+</div>
+    <h1>SAML Metadata: Discovery elements on <img src="/img/social-google-box-icon.png"/> appspot.com</h1>
+	
+    <table>
+      <tr>
+        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
+      </tr>
+      <tr>
+        <td>* <a href="crispysnippets">Hello World (Starter)</a></td>
+      </tr>
+      <tr><td> </td></tr>
+      <tr>
+        <td>* SamlMetadataCheckServlet <form action="samlmetadata">
+        Sample your own SAML2.0 metadata.xml File:<br/><input name="metadata" type="text"/><input name="btn" type="submit" value="submit"/></form></td>
+      </tr>
+    </table>
+    <ol id="metadataLinks"></ol>
+<script type="text/javascript">
+ 		var dataList = [
+ 			'http://wayf.aco.net/aconet-metadata.xml|ACOnet Identity Federation (Austria)',
+ 			'https://ds.aai.arnes.si/metadata/aai.arnes.si.sha256.xml|Arnes AAI (Slovenia)',
+ 			'https://ds.aaf.edu.au/distribution/metadata/metadata.aaf.signed.minimal.xml|Australian Access Federation (AAF)',
+ 			'https://federation.belnet.be/federation-metadata.xml|Belnet R&E Federation (Belgium)',
+ 			'https://ds.cafe.rnp.br/metadata/edugain/edugain-metadata.signed.xml|CAFe Federated Academic Community - Brazil',
+ 			'https://caf-shib2ops.ca/CoreServices/caf_metadata_signed_sha256.xml|Canadian Access Federation',
+ 			'http://www.carsi.edu.cn/carsimetadata/carsifed-metadata.xml|China CERNET Federation (CARSI)',
+ 			'http://www.cstcloud.org/discovery/metadata/cstcloud-fed-metadata.xml|China CSTCloud Federation',
+ 			'https://idp.aai.izum.si/izum-cobiss.signed.xml|COBISS AAI Federation',
+ 			'http://cofre.reuna.cl/metadata/cofre-metadata-signed.xml|COFRe - Comunidad Federada REUNA (Chile)',
+ 			'https://login.aaiedu.hr/edugain/module.php/aggregator/?id=aaieduhr_edugain&mimetype=application/xml|Croatian Research and Education Federation - AAI@EduHr',
+ 			'http://www.aai.dfn.de/fileadmin/metadata/DFN-AAI-metadata.xml|German Higher Education & Research (DFN-AAI)',
+ 			'http://edugate.heanet.ie/rr3/signedmetadata/federation/RWR1Z2F0ZQ~~/metadata.xml|Irish Edugate Federation',
+ 			'https://metadata.eduid.cz/entities/eduid|Czech Academic Identify Federation (eduID.cz)',
+ 			'http://metadata.eduid.hu/current/href.xml|Hungarian Research and Educational Federation (HREF)',
+ 			'http://fed.openathens.net/oafed/metadata|OpenAthens Federation',
+ 			'https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml|Japanese Research and Education (GakuNin)',
+ 			'https://md.aai.grnet.gr/aggregates/grnet-metadata.xml|GRNET AAI Federation (Greece)',
+ 			'http://www.garr.it/idem-metadata/idem-metadata-sha256.xml|Italian Higher Education & Research (IDEM)',
+ 			'http://md.incommon.org/InCommon/InCommon-metadata-idp-only.xml|US Higher Education (InCommon)',
+ 			'https://rctsaai-rr.fccn.pt/rr/signedmetadata/federation/UkNUU2FhaQ~~/metadata.xml|RCTSaai Federation (Portugal)',
+ 			'http://www.rediris.es/sir/shib1metadata.xml|Servicio de Identidad de RedIRIS (Spain)',
+ 			'https://metadata.federation.renater.fr/renater/main/main-idps-renater-metadata.xml|French universities and grandes ecoles (RENATER)',
+ 			'http://ae-shibcontent.elsevier.com/htdocs/fecyt_urn_mace_fecyt.xml|Spanish Identity Service by FECYT',
+ 			'https://engine.surfconext.nl/authentication/proxy/idps-metadata/key:20140505?sp-entity-id=https://sdauth.sciencedirect.com/&filename=/surfconext-metadata.xml|SURFconext (Dutch Universities)',
+ 			'http://mds.swamid.se/md/swamid-idp.xml|Swedish Academic Identity (SWAMID)',
+ 			'http://metadata.aai.switch.ch/metadata.switchaai.xml|Swiss Higher Education (SWITCHaai)',
+ 			'http://directory.tuakiri.ac.nz/metadata/tuakiri-metadata-signed.xml|Tuakiri New Zealand Access Federation',
+ 			'http://metadata.ukfederation.org.uk/ukfederation-metadata.xml|UK Access Management Federation',
+ 			'http://federation.northcarolina.edu/federation_unc/prod/metadata.xml|University of North Carolina (UNC) System',
+ 			'https://metadata.wayf.dk/birk-idp.xml|Danish Universities and Higher Education (WAYF)'
+ 		]
+ 		for (i = 0; i < dataList.length; i++) {
+ 			var keyVal = dataList[i].split('|');
+ 			var Objli = $('<li></li>');
+ 			var Obja = $('<a></a>'); // URL to basic view
+ 			var Objc = $('<a></a>'); // direct access to Fed metadata
+ 			var Objstat = $('<a></a>'); // URL to stats view
+ 			
+ 			// generates the link to the servlet for the basic view (i.e. XSLT transformation basic view)
+ 			Obja.attr("href","/samlmetadata?view=basic&metadata="+encodeURIComponent(keyVal[0]));
+ 			Obja.attr("class","mainlinkout");
+ 			Obja.text(keyVal[1]);
+ 			
+ 			// generates the link to the servlet for the stats view (i.e. XSLT transformation stats view)
+ 			Objstat.attr("href","/samlmetadata?view=stats&metadata="+encodeURIComponent(keyVal[0]));
+ 			Objstat.attr("class","linkout");
+ 			Objstat.text("[stats]");
+ 			
+ 			// generates the link the the federation metadata directly
+ 			Objc.attr("href",keyVal[0]);
+ 			Objc.attr("class","linkout");
+ 			Objc.text("[metadata]");
+ 			
+ 			
+ 			
+ 			Objli.append(Obja);
+ 			Objli.append($('<span> - </span>'));
+ 			//Objli.append(Objstat);
+ 			//Objli.append($('<span> - </span>'));
+ 			Objli.append(Objc);
+ 			
+ 			$('ol#metadataLinks').append(Objli);
+ 		}
+</script>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#aboutus">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#services">Services</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; 2017 Crispy-snippets except for content provided by third parties.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+  </body>
+</html>

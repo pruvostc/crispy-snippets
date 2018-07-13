@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=10,11" />
+	<title>Christian's RA21-P3W-Pilot</title>
+	<link rel="stylesheet" href="../assets/css/elsevier/IDP-globalsignin.css">
+	<link rel="stylesheet" href="../assets/fonts/gizmo/ss-gizmo.css">
+	<link rel="stylesheet" href="../assets/css/elsevier/IDP-formAnimation.css">
+	
+	<link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="manifest" href="manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<a class="accessibility-link-skip" href="#maincontent">Skip to content</a> 
+<header class="client-info-header elsevier">
+	<span class="els-logo"><img class="els-client-logo" src="../assets/images/elsevier/elsevier.svg" alt="$clientName"></span>
+</header>
+<div class="els-hero-image" style="background-image:none;background-color: #f5f5f5;">
+		<form id="checkAccessForm" action="" method="get" novalidate class="close-form" name="close-form">
+		<button type="submit" aria-label="Start over" title="Start over" name="close" id="els-close" value="true" class="els-icon-closing-nojs" role=link></button>
+	</form>
+		<form class="els-signin-form" method="POST" action="" autocomplete="off" name="elsForm" novalidate>
+		<section class="container-fluid">
+			<main id="maincontent">
+				<img src="../assets/images/elsevier/elsevier.svg" alt="Elsevier">
+				<h2 class="els-signin-client">Find your institution</h2>
+				<div id="demo"></div>
+				<div class="form-row">
+					<input type="text" id="email" name="squery" aria-required="true" aria-labelledby="emaillabel emailerror" required="" autocomplete="on" aria-autocomplete="inline" autofocus="">
+					<span class="bar"></span>
+					<label id="emaillabel" for="email">Institutional email or name of institution</label>
+					<span class="errormsg" id="emailerror" name="$errorMessageKey"></span>
+				</div>
+				<button type="submit" class="els-primaryBtn" id="els-continue" value="true" name="instSearch" role="link">Continue</button>
+				<br/>
+				          		
+			</main>
+			
+		</section>
+	</form>
+</div>
+
+<!-- cross-storage entityID discovery - start -->
+<script type="text/javascript" src="../js/cross-storage/es6-promise.auto.min.js"></script>
+<script type="text/javascript" src="../js/cross-storage/client.js"></script>
+<script type="text/javascript">
+  /**
+   * Constructs a WAYFLess URL
+   * @param {String} entityId
+   *   entityID value
+   * @return {String} url
+   *   WAYFLess URL as a string
+   */
+    function getWayfLessUrl(entityId) {
+	    return "https://auth.elsevier.com/ShibAuth/institutionLogin?entityID="
+	      + encodeURIComponent(entityId)
+	      + "&appReturnURL=http%3A%2F%2Fwww.sciencedirect.com%2Fscience";
+    }
+ 
+    var storage = new CrossStorageClient('https://nightly.pyff.io/storage/', {
+        timeout: 20000,
+        frameId: 'storageFrame'
+    });
+    
+    storage.onConnect()
+    .then(function() {
+      return storage.get('pyff_discovery_choices');
+    }).then(function(res) {
+      //console.log(res); // ['foo', 'bar']
+      
+      // Parse the results
+      var myObjects = JSON.parse(res);
+      for (i in myObjects) {
+    	obj = myObjects[i];
+    	document.getElementById("demo").innerHTML += "" 
+    		+ "<a href=\"" 
+    		+ getWayfLessUrl(obj.entity.entityID) 
+    		+ "\">"
+        	+ "<img width=\"50\" height=\"50\" src=\"" 
+    		+ obj.entity.entity_icon
+    		+ "\"/> "
+    		+ obj.entity.title 
+    		+ "</a>";
+      }
+    })['catch'](function(err) {
+      console.log(err);
+    });
+  </script>
+<!-- cross-storage entityID discovery - end -->
+
+    <footer class="els-footer">
+        <div class="els-footer-logo">
+            <a title="Go to Elsevier Homepage" href="http://www.elsevier.com/" target="_blank"><img src="../assets/images/elsevier/elsevier.svg" alt="Elsevier"></a>
+        </div>
+        <div class="els-document-links">
+            <div class="els-document-link-row">
+                <a href="https://www.elsevier.com/about" class="els-document-link" target="_tab">About Elsevier</a>     
+                <a href="https://www.elsevier.com/legal/elsevier-website-terms-and-conditions" class="els-document-link" target="_blank">Terms and conditions</a>
+                <a href="https://www.elsevier.com/legal/privacy-policy" class="els-document-link" target="_blank">Privacy policy</a>
+            </div>
+            <div class="els-document-link-row">Cookies are used by this site. For more information, visit the <a href="https://www.elsevier.com/legal/use-of-cookies" class="els-document-link cookie" target="_blank">cookies page</a>.
+            </div>
+        </div>
+        <div class="els-footer-reed-logo">
+            <a title="Go to RELX Group Homepage" href="http://www.reedelsevier.com/" target="_blank">
+                <img src="../assets/images/elsevier/RelexLogo.svg" alt="RELXGroup">
+            </a>
+        </div>
+    </footer>
+
+</body>
+</html>

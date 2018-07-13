@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<meta name="robots" content="index, follow" />
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+  	
+  	<!--  investigate <meta name="twitter:card" twitter:site twitter:title twitter:description etc... -->
+  	<!-- add additional relevant SEO tag --> 
+  	<!--  favicon stuff - to be improved for multiple platforms when the final icon/logo is decided -->
+  	<link rel="shortcut icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  	
+  	<!-- jquery library - must be loaded before other requiring it -->
+  	<script src="js/jquery-3.1.1.min.js"></script>
+
+  	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <!-- Optional theme -->
+	<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css"/>
+    <!-- Latest compiled and minified JavaScript -->
+	<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	
+	<!--  to investigate / adobe fonts
+	<script src="https://use.typekit.net/fpj7sfq.js"></script>
+	<script>try{Typekit.load({ async: true });}catch(e){}</script>  -->
+	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	
+	<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style-home.css"/>
+	
+    <title>Christian Pruvost's Snippets</title>
+  </head>
+<body>
+<header role="banner">
+<!--Navbar-->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Crispy-Snippets</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">SAML discovery<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#metadata">Metadata check</a></li>
+            <li><a href="#ra21-p3w">RA21 - P3W Pilot</a></li>
+            <li><a href="#">not linked</a></li>
+          </ul>
+        </li>
+        <li><a href="#aboutus">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header> 
+<!-- nav class="navbar navbar-default navbar-dark bg-primary" role="navigation" >
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+<span class="sr-only">Toggle navigation</span> 
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="/"> Crispy-Snippets </a>
+</div>
+<div class="collapse navbar-collapse navbar-responsive-collapse" id="main-nav">
+<ul class="nav navbar-nav">
+<li class="menu-item menu-item-type-post_type menu-item-object-page"><a title="nav1" href="/">Nav 1 <i class="fa fa-book" aria-hidden="true"></i></a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page"><a title="nav2" href="/">Nav 2</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor"><a title="nav3" href="/">Nav 3</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page"><a title="nav4" href="/search"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+</ul>
+<form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+</form>
+</div>
+</div> 
+</nav-->
+
+    <!-- Header -->
+    <a id="aboutus" name="aboutus"></a>
+    <div class="intro-header">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+                        <h1>Crispy Snippets</h1>
+                        <h3>Follow me on</h3>
+                        <hr class="intro-divider">
+                        <ul class="list-inline intro-social-buttons">
+                            <li>
+                                <a href="https://twitter.com/morecrispy" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/pruvostc" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/in/christianpruvost/" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.intro-header -->
+
+    <!-- Page Content -->
+
+	<a  id="metadata" name="metadata"></a>
+    <div class="content-section-a">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">SAML Metadata:<br>Discovery elements</h2>
+                    <p class="lead">Investigate SAML V2.0 Metadata Extensions for Login and Discovery. <a href="/saml/">Review the metadata</a> per federation.</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="/img/discovery.jpg" alt="">
+                </div>
+                <div class="col-lg-5 col-lg-offset-7 col-sm-6">Source: <a target="_blank" href="http://lewispugh.com/antarctica-2020-campaign/">Lewis Pugh (antarctica-2020-campaign)</a></div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+    <a  id="ra21-p3w" name="ra21-p3w"></a>
+    <div class="content-section-b">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">RA21 - P3W Pilot</h2>
+                    <p class="lead">As part of the <a href="https://ra21.org/" target="RA21">Resource Access for the 21st Century</a> project, 
+                    this gets to a <a href="ra21/">page demonstrating the use of cross-domain local storage</a>.</p>
+                </div>
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                    <img class="img-responsive" src="/img/RA21-l-bl.jpg" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-b -->
+
+    <div class="content-section-a">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Unused Snippet section</h2>
+                    <p class="lead">This section is currently unused - come back later to see when something new has been published</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="/img/puppy.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+	<a  id="contact" name="contact"></a>
+    <div class="banner">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>Connect with Christian:</h2>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="list-inline banner-social-buttons">
+                        <li>
+                            <a href="https://twitter.com/morecrispy" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/pruvostc" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/christianpruvost/" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.banner -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#aboutus">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#services">Services</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; 2017 Crispy-snippets except for content provided by third parties.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+  </body>
+</html>
