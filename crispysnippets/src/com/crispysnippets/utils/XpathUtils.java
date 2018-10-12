@@ -29,8 +29,7 @@ public class XpathUtils {
 
   //  private static final Logger LOGGER = Logger.getLogger(XpathUtils.class.getName());
   
-  /**
-   * Performs the actual implementation of the XPath Search
+  /** Performs the actual implementation of the XPath Search.
    * @param xpathExpression the path to search with
    * @param doc the document to search
    * @return the matching node list
@@ -45,7 +44,7 @@ public class XpathUtils {
   }
 
   /**
-   * Performs XPath Search to return a single node
+   * Performs XPath Search to return a single node.
    * @param xpathExpression the path to search with
    * @param doc the document to search
    * @return the matching node

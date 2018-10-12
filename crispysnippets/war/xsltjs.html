@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>MetadataXML Info List v2</title>
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+	<link rel="stylesheet" href="css/style1.css"/>
+	<!--  script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script-->
+
+<script>
+function loadXMLDoc(filename)
+{
+if (window.ActiveXObject)
+  {
+  xhttp = new ActiveXObject("Msxml2.XMLHTTP");
+  }
+else 
+  {
+  xhttp = new XMLHttpRequest();
+  }
+xhttp.open("GET", filename, false);
+try {xhttp.responseType = "msxml-document"} catch(err) {} // Helping IE11
+xhttp.send("");
+return xhttp.responseXML;
+}
+
+function displayResult(url)
+{
+let metadataUrl = url ? url : "https://federation.belnet.be/federation-metadata.xml";	
+xml = loadXMLDoc(metadataUrl);
+//xml = loadXMLDoc("ukfederation-metadata-short.xml");
+//xml = loadXMLDoc("metadata.xml");
+
+xsl = loadXMLDoc("xsltest.xsl");
+// code for IE
+if (window.ActiveXObject || xhttp.responseType == "msxml-document")
+  {
+  ex = xml.transformNode(xsl);
+  document.getElementById("example").innerHTML = ex;
+  }
+// code for Chrome, Firefox, Opera, etc.
+else if (document.implementation && document.implementation.createDocument)
+  {
+  xsltProcessor = new XSLTProcessor();
+  xsltProcessor.importStylesheet(xsl);
+  resultDocument = xsltProcessor.transformToFragment(xml, document);
+  document.getElementById("example").appendChild(resultDocument);
+  }
+}
+</script>
+</head>
+
+<body onload="displayResult()">
+<div id="example"></div>
+<iframe id="xFrame" src="about:blank" style="display:none;"></iframe>
+<script>
+var request = { 
+		 accepts: 'application/json', 
+		 type: 'get', 
+		 url: 'https://lyncdiscover.sipdomain.com/', 
+		 xhrFields: { 
+		 withCredentials: true 
+		 }, 
+		 messageId: { 
+		 Id: Id, 
+		 callback: callback, 
+		 } 
+		}; 
+		document.getElementById('xFrame').contentWindow.postMessage(JSON.stringify({request}), url);
+		
+		//handle the response
+		this.receiveMessage = function(message) { 
+ 		// handle response from iframe origin 
+		}; 
+		window.addEventListener('message', this.receiveMessage, false)
+</script>
+</body>
+</html>
