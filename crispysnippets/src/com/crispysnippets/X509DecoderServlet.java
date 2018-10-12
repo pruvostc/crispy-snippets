@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/** this is work in progress. **/
 public class X509DecoderServlet extends HttpServlet {
   
+  public static final long serialVersionUID = 42L;
   private static final Logger LOGGER = Logger.getLogger(X509DecoderServlet.class.getName());
   
   /**
@@ -28,7 +30,7 @@ public class X509DecoderServlet extends HttpServlet {
     long startTime = System.currentTimeMillis(); // get the current time
     
     // Get the certificate value;
-    String cryptedCert = req.getParameter("cert");
+    //String cryptedCert = req.getParameter("cert");
     LOGGER.log(Level.INFO, "Duration " + (System.currentTimeMillis() - startTime));
   }
 }
