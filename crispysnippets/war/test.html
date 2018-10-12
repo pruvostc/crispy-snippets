@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+simpleAJAXLib = {
+    init: function () {
+        this.fetchViaJSONP('http://127.0.0.1:8080/ukfederation-metadata-short.xml');
+    },
+ 
+    fetchViaJSONP: function (url) {
+        url += '?format=jsonp&jsonp_callback=simpleAJAXLib.handleResponse';
+        document.getElementsByTagName('body')[0].appendChild(this.jsTag(url));
+    },
+ 
+    jsTag: function (url) {
+        var script = document.createElement('script');
+        script.setAttribute('type', 'text/javascript');
+        script.setAttribute('src', url);
+        return script;
+    },
+ 
+    handleResponse: function (results) {
+        // do the necessary stuff; for example
+        document.getElementById('demo').innerHTML = "Result = " + (results.error ? "Internal Server Error!" : results.response);
+    }
+};
+</script>
+</head>
+<body>
+<script type="text/javascript">
+      simpleAJAXLib.init();
+</script>
+</body>
+</html>
