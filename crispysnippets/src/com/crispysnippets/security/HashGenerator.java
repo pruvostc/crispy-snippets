@@ -25,19 +25,19 @@ public class HashGenerator {
   
   /**
    * Method to convert a byte array into an hexadecimal string.
-   * @param arrayBytes the array of bytes
    * @return A hex string containing the converted array
+   * @throws DigestProcessingException exception
+   * {@value #algorithm} String SHA-256 MD5 SHA-1
    */
-  private static String hashString(String message, String algorithm)
+  public static String hashString(String message, String algorithm)
             throws DigestProcessingException {
     try {
-      MessageDigest digest = MessageDigest.getInstance(algorithm);
-      byte[] hashedBytes = digest.digest(message.getBytes("UTF-8"));
-     
-      return convertByteArrayToHexString(hashedBytes);
+      MessageDigest md = MessageDigest.getInstance(algorithm);
+      md.update(message.getBytes("UTF-8"));
+      byte[] hashedBytes = md.digest();
+      return convertByteArrayToHexString(hashedBytes);     
     } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-      throw new DigestProcessingException(
-                    "Could not generate hash from String", ex);
+      throw new DigestProcessingException("Hash Generation Error", ex);
     }
   }
 }
