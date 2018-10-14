@@ -23,7 +23,11 @@ import javax.servlet.http.HttpServletResponse;
 public class DataFeedServlet extends HttpServlet {
   
   private static final long serialVersionUID = 1L;
-  private static final Logger LOGGER = Logger.getLogger(DataFeedServlet.class.getName());  
+  private static final Logger LOGGER = Logger.getLogger(DataFeedServlet.class.getName());
+  private static final String DEFAULT_ENCODING = "UTF-8";
+  private static final String DEFAULT_SIGALGO = "SHA-256";
+  private static final String ACCESSREFUSED = 
+            "<html><body>Access to this feature is restricted, sorry...</body></html>";
   
   /** Constructor.
    * @see HttpServlet#HttpServlet()
@@ -50,21 +54,23 @@ public class DataFeedServlet extends HttpServlet {
     try {
       creationTime = Long.parseLong(stamp);
     } catch (NumberFormatException nfe) {
-      LOGGER.log(Level.SEVERE,"NumberFormatException: " + nfe.getMessage());
+      LOGGER.log(Level.WARNING,"NumberFormatException: " + nfe.getMessage());
+      valid = false;
     }
-    // compare the time of creation with now
+    // compare the time of creation with now - invalidate if expired
     long now = DateTime.getUtcTimeMilliseconds();
     if ((now - creationTime) > 300000) {
       // invalidate the request
       valid = false;
     }
     
+    // check the validity of the signature - invalidate if incorrect
     if (valid) {
       String msg = "src=" + src + "&s=" + stamp + secretToHide;
     
       // regenerate MessageDigest to check validity
       try {
-        String calculatedHash = HashGenerator.hashString(msg, "SHA-256");
+        String calculatedHash = HashGenerator.hashString(msg, DEFAULT_SIGALGO);
         LOGGER.log(Level.INFO,"original:" + msg);
         LOGGER.log(Level.INFO,"digested(hex):" + calculatedHash);
         LOGGER.log(Level.INFO,"provided(hex):" + sig);
@@ -72,26 +78,30 @@ public class DataFeedServlet extends HttpServlet {
           valid = false; // invalidate request if signature is different
         }
       } catch (Exception ex) {
-        LOGGER.log(Level.SEVERE,"Failed to generate hash and compare with original: " 
+        LOGGER.log(Level.WARNING,"Failed to generate hash and compare with original: " 
             + ex.getMessage());
+        valid = false;
       }
     }
     
-    
+    // if all is good, go an fetch the content
     if (valid) {
       
       // the submitted param is used when <Carriage Return> was used to submit the form
       if ((src != null) && !("").equals(src)) {
-        URLDecoder.decode(src, "UTF-8");
+        URLDecoder.decode(src, DEFAULT_ENCODING);
         resp = HttpConnector.httpGet(src);
       }
 
       // Auto-generated method stub
       response.getWriter().append(resp);
       
+    // Response is HTTP 403 when the request isn't valid
     } else {
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-      response.getWriter().append("Access to this feature is restricted, Access Refused!");
+      response.setContentType("text/html; charset=" + DEFAULT_ENCODING);
+      response.setCharacterEncoding(DEFAULT_ENCODING);
+      response.getWriter().append(ACCESSREFUSED);
     }
     
   }
