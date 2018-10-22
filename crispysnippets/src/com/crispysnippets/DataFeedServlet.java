@@ -1,10 +1,9 @@
 package com.crispysnippets;
 
-import com.crispysnippets.security.HashGenerator;
-import com.crispysnippets.utils.DateTime;
-import com.crispysnippets.utils.HttpConnector;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,6 +11,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.crispysnippets.security.HashGenerator;
+import com.crispysnippets.utils.DateTime;
+import com.crispysnippets.utils.HttpConnector;
 
 
 
@@ -43,13 +46,16 @@ public class DataFeedServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws ServletException, IOException {
     String src = request.getParameter("src"); // target URL
+    System.out.println("src = " + src);
     String sig = request.getParameter("sig"); // hash provided
+    System.out.println("sig = " + sig);
     String secretToHide = "30268606F8B95F76B300D27630AFAC4E";
     String resp = ""; // response returned.
     boolean valid = true;
     
     // Extract creationTime and convert it to a long for comparison with now
     String stamp = request.getParameter("s");
+    System.out.println("received timestamp: " + stamp);
     long creationTime = 0;
     try {
       creationTime = Long.parseLong(stamp);
@@ -59,6 +65,7 @@ public class DataFeedServlet extends HttpServlet {
     }
     // compare the time of creation with now - invalidate if expired
     long now = DateTime.getUtcTimeMilliseconds();
+    System.out.println("UTC Stamp now: " + now);
     if ((now - creationTime) > 300000) {
       // invalidate the request
       valid = false;
@@ -66,7 +73,7 @@ public class DataFeedServlet extends HttpServlet {
     
     // check the validity of the signature - invalidate if incorrect
     if (valid) {
-      String msg = "src=" + src + "&s=" + stamp + secretToHide;
+      String msg = "src=" + URLEncoder.encode(src, StandardCharsets.UTF_8.toString()) + "&s=" + stamp + secretToHide;
     
       // regenerate MessageDigest to check validity
       try {
