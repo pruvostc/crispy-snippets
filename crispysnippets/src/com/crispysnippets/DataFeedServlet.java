@@ -46,16 +46,13 @@ public class DataFeedServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws ServletException, IOException {
     String src = request.getParameter("src"); // target URL
-    System.out.println("src = " + src);
     String sig = request.getParameter("sig"); // hash provided
-    System.out.println("sig = " + sig);
     String secretToHide = "30268606F8B95F76B300D27630AFAC4E";
     String resp = ""; // response returned.
     boolean valid = true;
     
     // Extract creationTime and convert it to a long for comparison with now
     String stamp = request.getParameter("s");
-    System.out.println("received timestamp: " + stamp);
     long creationTime = 0;
     try {
       creationTime = Long.parseLong(stamp);
@@ -65,7 +62,6 @@ public class DataFeedServlet extends HttpServlet {
     }
     // compare the time of creation with now - invalidate if expired
     long now = DateTime.getUtcTimeMilliseconds();
-    System.out.println("UTC Stamp now: " + now);
     if ((now - creationTime) > 300000) {
       // invalidate the request
       valid = false;
@@ -79,10 +75,11 @@ public class DataFeedServlet extends HttpServlet {
       try {
         String calculatedHash = HashGenerator.hashString(msg, DEFAULT_SIGALGO);
         LOGGER.log(Level.INFO,"original:" + msg);
-        LOGGER.log(Level.INFO,"digested(hex):" + calculatedHash);
-        LOGGER.log(Level.INFO,"provided(hex):" + sig);
+        LOGGER.log(Level.FINE,"digested(hex):" + calculatedHash);
+        LOGGER.log(Level.FINE,"provided(hex):" + sig);
         if (!sig.equals(calculatedHash)) {
           valid = false; // invalidate request if signature is different
+          LOGGER.log(Level.INFO,"Signature is not valid");
         }
       } catch (Exception ex) {
         LOGGER.log(Level.WARNING,"Failed to generate hash and compare with original: " 
