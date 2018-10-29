@@ -28,5 +28,8 @@
     stale session data. For details, see
     https://cloud.google.com/appengine/docs/java/config/appconfig#Java_appengine_web_xml_Enabling_sessions
   -->
+  
+  <!-- App Engine: Using URLFetch in a Java 8 app -->
+  <url-stream-handler>urlfetch</url-stream-handler>
 
 </appengine-web-app>
