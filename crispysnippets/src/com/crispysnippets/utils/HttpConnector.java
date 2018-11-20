@@ -25,10 +25,11 @@ public class HttpConnector {
   public static String httpGet(String urlString) {
 
     InputStream input = null;
+    HttpURLConnection con = null;
     StringBuffer response = new StringBuffer("");
     try {
       URL url = new URL(urlString);
-      HttpURLConnection con = (HttpURLConnection) url.openConnection();
+      con = (HttpURLConnection) url.openConnection();
       con.setReadTimeout(150000); //150s max
       
       // By default it is GET request
@@ -63,7 +64,6 @@ public class HttpConnector {
       } else {
         LOGGER.log(Level.WARNING,"GET request did not worked-> responseCode: " + responseCode);
       }
-
     } catch (MalformedURLException mlExcept) {
       LOGGER.log(Level.SEVERE, "MalformedURLException..." + mlExcept.getMessage());
     } catch (UnknownHostException uhExcept) {
@@ -76,6 +76,7 @@ public class HttpConnector {
       if (input != null) {
         try {
           input.close();
+          con.disconnect();
           LOGGER.log(Level.FINE, "Closing socket..."); 
         } catch (Exception fetchException) {
           LOGGER.log(Level.SEVERE, fetchException.getMessage());
