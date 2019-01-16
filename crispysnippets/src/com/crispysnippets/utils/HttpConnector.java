@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+//import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -36,6 +37,7 @@ public class HttpConnector {
       con.setRequestMethod("GET");
       // add request headers
       //con.setRequestProperty("Connection", "keep-alive");
+      con.setRequestProperty("Charset", DEFAULT_ENCODING);
       con.setRequestProperty("Connection", "close");
       con.setRequestProperty("User-Agent", USER_AGENT);
       con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml");
@@ -43,13 +45,16 @@ public class HttpConnector {
       //con.setUseCaches(true);
       
       con.connect();
-      System.out.print(">>>>>>>>> Content-Type: " + con.getContentType());
+      //System.out.print(">>>>>>>>> Content-Type: " + con.getContentType());
+      //String contentEncoding = con.getContentEncoding();
+      //System.out.print(">>>>>>>>> contentEncoding: " + contentEncoding);
       int responseCode = con.getResponseCode();
       //System.out.println("GET request did not worked-> responseCode: " + responseCode);
       if (responseCode == HttpURLConnection.HTTP_OK) { // success and read it all
-        //LOGGER.log(Level.WARNING, "content-Type: " + con.getContentType());
+        LOGGER.log(Level.WARNING, "content-Type: " + con.getContentType());
         
         input = con.getInputStream();
+        
         BufferedReader in = new BufferedReader(new InputStreamReader(input, DEFAULT_ENCODING));
         
         
@@ -86,7 +91,24 @@ public class HttpConnector {
         }
       }
     }
-
-    return response.toString();
+    
+    // ensure to output with the correct encoding (not system default like the one on windows)
+    /** try {
+    	PrintStream out = new PrintStream(System.out, true, "UTF-8");
+    	out.println(response.toString());
+    } catch (Exception e) {
+    	LOGGER.log(Level.SEVERE, "EncodingException..." + e.getLocalizedMessage());
+    } **/
+    
+    String content= null;
+    try {
+	    byte b[] = String.valueOf(response).getBytes();
+	    content = new String(b, "UTF-8");
+    } catch (Exception e) {
+    	LOGGER.log(Level.SEVERE, "EncodingException..." + e.getLocalizedMessage());
+    } finally {
+    	content = response.toString();
+    }
+    return content;
   }
 }
