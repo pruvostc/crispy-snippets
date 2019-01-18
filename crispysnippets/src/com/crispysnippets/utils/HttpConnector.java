@@ -16,7 +16,7 @@ public class HttpConnector {
 
   private static final Logger LOGGER = Logger.getLogger(HttpConnector.class.getName());
   private static final String USER_AGENT = "CripySnippets Agent";
-  private static final String DEFAULT_ENCODING = "UTF-8";
+  private static final String DEFAULT_ENCODING = "UTF-8"; //consider using StandardCharsets.UTF_8 at some point
 
   /**
    * HTTP GET Method.
@@ -27,7 +27,7 @@ public class HttpConnector {
 
     InputStream input = null;
     HttpURLConnection con = null;
-    StringBuffer response = new StringBuffer("");
+    StringBuilder response = new StringBuilder();
     try {
       URL url = new URL(urlString);
       con = (HttpURLConnection) url.openConnection();
@@ -57,7 +57,6 @@ public class HttpConnector {
         
         BufferedReader in = new BufferedReader(new InputStreamReader(input, DEFAULT_ENCODING));
         
-        
         String inputLine;
         while ((inputLine = in.readLine()) != null) {
           response.append(inputLine);
@@ -65,7 +64,7 @@ public class HttpConnector {
         in.close();
 
         // print result
-        // LOGGER.log(Level.FINE,response.toString());
+        LOGGER.log(Level.FINE,response.toString());
       } else {
         LOGGER.log(Level.WARNING,"GET request did not worked-> responseCode: " + responseCode);
       }
@@ -94,7 +93,7 @@ public class HttpConnector {
     
     // ensure to output with the correct encoding (not system default like the one on windows)
     /** try {
-    	PrintStream out = new PrintStream(System.out, true, "UTF-8");
+    	PrintStream out = new PrintStream(System.out, true, DEFAULT_ENCODING); // here "UTF-8"
     	out.println(response.toString());
     } catch (Exception e) {
     	LOGGER.log(Level.SEVERE, "EncodingException..." + e.getLocalizedMessage());
@@ -103,12 +102,12 @@ public class HttpConnector {
     String content= null;
     try {
 	    byte b[] = String.valueOf(response).getBytes();
-	    content = new String(b, "UTF-8");
+	    content = new String(b, DEFAULT_ENCODING);
+	    //System.out.println("WAS CONVERTED TO UTF-8 as \n" + content);
     } catch (Exception e) {
     	LOGGER.log(Level.SEVERE, "EncodingException..." + e.getLocalizedMessage());
-    } finally {
     	content = response.toString();
-    }
+    } 
     return content;
   }
 }
