@@ -1,12 +1,12 @@
 package com.crispysnippets;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +48,7 @@ public class DataFeedServlet extends HttpServlet {
     String src = request.getParameter("src"); // target URL
     String sig = request.getParameter("sig"); // hash provided
     String secretToHide = "30268606F8B95F76B300D27630AFAC4E";
-    String resp = ""; // response returned.
+    ByteArrayOutputStream baos = new ByteArrayOutputStream(); // response returned.
     boolean valid = true;
     
     // Extract creationTime and convert it to a long for comparison with now
@@ -74,7 +74,7 @@ public class DataFeedServlet extends HttpServlet {
       // regenerate MessageDigest to check validity
       try {
         String calculatedHash = HashGenerator.hashString(msg, DEFAULT_SIGALGO);
-        LOGGER.log(Level.INFO,"original:" + msg);
+        LOGGER.log(Level.FINE,"original:" + msg);
         LOGGER.log(Level.FINE,"digested(hex):" + calculatedHash);
         LOGGER.log(Level.FINE,"provided(hex):" + sig);
         if (!sig.equals(calculatedHash)) {
@@ -94,11 +94,14 @@ public class DataFeedServlet extends HttpServlet {
       // the submitted param is used when <Carriage Return> was used to submit the form
       if ((src != null) && !("").equals(src)) {
         URLDecoder.decode(src, DEFAULT_ENCODING);
-        resp = HttpConnector.httpGet(src);
+        baos = HttpConnector.httpGetByteArrayOutputStream(src);
       }
 
       // Auto-generated method stub
-      response.getWriter().append(resp);
+      response.setCharacterEncoding(DEFAULT_ENCODING);
+      response.setContentType("text/html; charset=" + DEFAULT_ENCODING);
+      // response.addHeader("Content-Encoding", "gzip");
+      response.getWriter().append(baos.toString(DEFAULT_ENCODING));
       
     // Response is HTTP 403 when the request isn't valid
     } else {
