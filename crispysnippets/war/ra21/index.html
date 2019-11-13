@@ -30,7 +30,8 @@
 </head>
 <body>
 <hr/>
-<h3>To see the RA21 / SeamLess Access implementation in action, please first search for an institution on the discovery Service at <a href="https://service.seamlessaccess.org/ds/" target="_blank">SeamlessAccess.org</a> discovery Service. Otherwise, you will not see the institution data when loading this page.</h3>
+<h3>To see the RA21 / SeamLess Access implementation in action, please first search for an institution on the discovery Service at <a href="https://service.seamlessaccess.org/ds/" target="_blank">SeamlessAccess.org</a> discovery Service. Otherwise, you will not see the institution data when loading this page.
+ see also <a href="https://use.thiss.io/ds/" target="_blank">use.this.io discovery Service</a> for the non-production environment). Otherwise, you will not see the institution that has been persisted.</h3>
 <hr/>
 <a class="accessibility-link-skip" href="#maincontent">Skip to content</a> 
 <header class="client-info-header elsevier">
@@ -63,7 +64,6 @@
 
 <!-- cross-storage entityID discovery - start -->
 <script src="//unpkg.com/@theidentityselector/thiss-ds"></script>
-<!-- script src="/js/cross-storage/thiss-ds.js"></script-->
 
 <script type="text/javascript">
   /**
@@ -82,18 +82,21 @@
    
    var my_context = 'thiss.io';
   
-   var ps = new thiss.PersistenceService('https://service.seamlessaccess.org/ps/'); // prod url
-   //var ps = new thiss.PersistenceService('https://use.thiss.io/ps/'); // beta testing URL
+   //var ps = new thiss.PersistenceService('https://service.seamlessaccess.org/ps/'); // prod url
+   var ps = new thiss.PersistenceService('https://use.thiss.io/ps/'); // beta testing URL
    
    //console.log(ps.entities('thiss.io'));
    console.log('start');
+   console.log(ps);
    ps.entities(my_context)
    .then(function(res) {
      // loaded
      console.log(res);
      // Parse the results
         var myObjects = res.data; //JSON.parse(res);
+        var j=0;
         for (i in myObjects) {
+        	//if (j>0) { break; }
           obj = myObjects[i];
           console.log(obj);
           
@@ -110,10 +113,12 @@
             + logo
             + obj.entity.title 
             + "</a>";
+          j = j + 1;
+          console.log(j);
         };
-     }, function() {
+     }, function(err) {
        // failed
-       console.log('2- failed to read from Persistence Service ------------------------');
+       console.log('2- failed to read from Persistence Service ------------------------ ' + err);
     });
      
 

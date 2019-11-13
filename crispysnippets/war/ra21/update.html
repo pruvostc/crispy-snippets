@@ -38,8 +38,8 @@ $(function() {
       // thiss.io is the default context, the same is used when the context is not provided
       var my_context = 'thiss.io'; // change this context value to persist entities in your own context (i.e. key).
      
-      var ps = new thiss.PersistenceService('https://service.seamlessaccess.org/ps/'); // prod url
-      //var ps = new thiss.PersistenceService('https://use.thiss.io/ps/'); // beta testing URL
+      //var ps = new thiss.PersistenceService('https://service.seamlessaccess.org/ps/'); // prod url
+      var ps = new thiss.PersistenceService('https://use.thiss.io/ps/'); // beta testing URL
 
       var jsonformObj = JSON.parse(entitydata.val());
 

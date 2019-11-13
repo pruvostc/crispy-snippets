@@ -1,0 +1,13 @@
+{
+  "name": "Your Great Site",
+  "short_name": "Crispy Snippets",
+  "description": "little code demos / implementations / tools for the community",
+  "start_url": "/",
+  "background_color": "#000000",
+  "theme_color": "#0f4a73",
+  "icons": [{
+    "src": "android-icon-144x144.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  }]
+}
